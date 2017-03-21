@@ -233,8 +233,8 @@ class PyBuildExt(build_ext):
 
             # If a module has already been built statically,
             # don't build it here
-            if ext.name in sys.builtin_module_names:
-                self.extensions.remove(ext)
+            #if ext.name in sys.builtin_module_names:
+            #    self.extensions.remove(ext)
 
         # Parse Modules/Setup and Modules/Setup.local to figure out which
         # modules are turned on in the file.
@@ -1618,13 +1618,13 @@ class PyBuildExt(build_ext):
 
 
         # Platform-specific libraries
-        if host_platform == 'linux2':
+        if host_platform == 'linux2' or host_platform == 'linux2-arm':
             # Linux-specific modules
             exts.append( Extension('linuxaudiodev', ['linuxaudiodev.c']) )
         else:
             missing.append('linuxaudiodev')
 
-        if (host_platform in ('linux2', 'freebsd4', 'freebsd5', 'freebsd6',
+        if (host_platform in ('linux2', 'linux2-arm', 'freebsd4', 'freebsd5', 'freebsd6',
                         'freebsd7', 'freebsd8')
             or host_platform.startswith("gnukfreebsd")):
             exts.append( Extension('ossaudiodev', ['ossaudiodev.c']) )
